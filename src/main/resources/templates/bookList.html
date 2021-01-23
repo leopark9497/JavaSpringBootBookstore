@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Book Listing</title>
+        <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Books</h1>
+            <table class="table table-striped">
+                <thead>
+                <th>Author</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Year</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Ernest Hemingway</td>
+                    <td>A Farewell to Arms</td>
+                    <td>12322312-21</td>
+                    <td>1929</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
