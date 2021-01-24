@@ -47,6 +47,10 @@ public class BookController {
                 updatingBook.setIsbn(isbn);
                 service.save(updatingBook);
             }
+
+            if (action.equals("delete_book")) {
+                service.delete(id);
+            }
         }
 
         List<Book> listOfBooks = service.listAll();

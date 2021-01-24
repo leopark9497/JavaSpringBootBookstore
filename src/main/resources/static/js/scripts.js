@@ -1,3 +1,7 @@
+//Prevent reloading with parameters in url
+window.history.replaceState({}, document.title, window.location.pathname);
+
+//Handle editing form
 const editButtons = document.getElementsByClassName("edit-button");
 
 for (const editButton of editButtons) {
