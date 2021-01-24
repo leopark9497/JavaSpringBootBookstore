@@ -1,0 +1,21 @@
+button {
+    width: 120px;
+    margin: 2px;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.book-information input:disabled {
+   border: none;
+   color: black;
+}
+
+.book-information .edit-button:before {
+   content: "Edit";
+}
+
+.book-information .edit-button.submit:before {
+   content: "Update";
+}

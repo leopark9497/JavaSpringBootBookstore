@@ -4,26 +4,74 @@
         <meta charset="UTF-8">
         <title>Book Listing</title>
         <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" th:href="@{css/styles.css}" />
     </head>
     <body>
         <div class="container">
             <h1>Books</h1>
             <table class="table table-striped">
                 <thead>
-                <th>Author</th>
-                <th>Title</th>
-                <th>ISBN</th>
-                <th>Year</th>
+                    <tr>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>ISBN</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
+                <tr th:each="book : ${listOfBooks}" class="book-information">
+                    <td>
+                        <input th:form="${book.id}" disabled="true" th:id="${book.id} + '_author'" name="author" th:value="${book.author}"/>
+                    </td>
+                    <td>
+                        <input th:form="${book.id}" disabled="true" th:id="${book.id} + '_title'" name="title" th:value="${book.title}"/>
+                    </td>
+                    <td>
+                        <input th:form="${book.id}" disabled="true" th:id="${book.id} + '_isbn'" name="isbn" th:value="${book.isbn}"/>
+                    </td>
+                    <td>
+                        <input th:form="${book.id}" disabled="true" th:id="${book.id} + '_year'" name="year" th:value="${book.year}"/>
+                    </td>
+                    <td>
+                        <form th:id="${book.id}">
+                            <input hidden="true" name="id" th:value="${book.id}">
+                            <button class="btn btn-primary edit-button"></button>
+                            <input hidden="true" name="action" th:value="update_book">
+                        </form>
+                        <form th:id="${book.id} + '_delete'">
+                            <input hidden="true" name="id" th:value="${book.id}">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                            <input hidden="true" name="action" th:value="delete_book">
+                        </form>
+                    </td>
+                </tr>
                 <tr>
-                    <td>Ernest Hemingway</td>
-                    <td>A Farewell to Arms</td>
-                    <td>12322312-21</td>
-                    <td>1929</td>
+                    <td>
+                        <input form="new-book" id="new_author" name="author"/>
+                    </td>
+                    <td>
+                        <input form="new-book" id="new_title" name="title"/>
+                    </td>
+                    <td>
+                        <input form="new-book" id="new_isbn" name="isbn"/>
+                    </td>
+
+                    <td>
+                        <input form="new-book" id="new_year" name="year"/>
+                    </td>
+                    <td>
+                        <form id="new-book">
+                            <input type="hidden" name="action" value="add_new_book"/>
+                            <button class="btn btn btn-success" type="submit">
+                                Add new book
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </body>
+    <script th:src="@{js/scripts.js}"></script>
 </html>
