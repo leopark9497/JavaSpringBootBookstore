@@ -1,9 +1,7 @@
 package com.duongphan.bookstore.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -15,7 +13,25 @@ public class Book {
     private String year;
     private String isbn;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Category> categories;
+
+    public Book(String title, String author, String year, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.isbn = isbn;
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
     public Book() {
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -56,14 +72,6 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public Book(String title, String author, String year, String isbn) {
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.isbn = isbn;
-
     }
 
 }

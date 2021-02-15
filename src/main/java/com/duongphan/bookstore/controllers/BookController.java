@@ -1,22 +1,27 @@
 package com.duongphan.bookstore.controllers;
 
 import com.duongphan.bookstore.models.Book;
+import com.duongphan.bookstore.models.Category;
 import com.duongphan.bookstore.services.BookService;
+import com.duongphan.bookstore.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BookController {
     @Autowired
     private BookService service;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/")
     public String index() {
@@ -31,11 +36,16 @@ public class BookController {
             @RequestParam(required = false) String isbn,
             @RequestParam(required = false) String year,
             @RequestParam(required = false) Long id,
+            @RequestParam(required = false) Long categoryId,
             Model model
     ) {
         if (action != null) {
             if (action.equals("add_new_book")) {
                 Book newBook = new Book(title, author, year, isbn);
+                List<Category> categories = new ArrayList<>();
+                categories.add(categoryService.get(categoryId));
+                newBook.setCategories(categories);
+
                 service.save(newBook);
             }
 
@@ -55,6 +65,9 @@ public class BookController {
 
         List<Book> listOfBooks = service.listAll();
         model.addAttribute("listOfBooks", listOfBooks);
+
+        List<Category> listOfCategories = categoryService.listAll();
+        model.addAttribute("listOfCategories", listOfCategories);
 
         return "bookList";
     }

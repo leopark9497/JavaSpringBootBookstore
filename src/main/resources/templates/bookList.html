@@ -16,6 +16,7 @@
                         <th>Title</th>
                         <th>ISBN</th>
                         <th>Year</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -32,6 +33,18 @@
                     </td>
                     <td>
                         <input th:form="${book.id}" disabled="true" th:id="${book.id} + '_year'" name="year" th:value="${book.year}"/>
+                    </td>
+                    <td>
+                        <select th:form="${book.id}" disabled="true" name="category" class="form-select" aria-label="category select">
+                            <option
+                                    th:each="category : ${book.categories}"
+                                    class="book-information"
+                                    value="${category.name}"
+                                    th:text="${category.name}"
+                                    th:selected="${category == book.categories[0]}"
+                            >
+                            </option>
+                        </select>
                     </td>
                     <td>
                         <form th:id="${book.id}">
@@ -61,6 +74,17 @@
                         <input form="new-book" id="new_year" name="year"/>
                     </td>
                     <td>
+                        <select form="new-book" name="categoryId" class="form-select" aria-label="category select">
+                            <option
+                                th:each="category : ${listOfCategories}"
+                                class="book-information"
+                                th:value="${category.id}"
+                                th:text="${category.name}"
+                            >
+                            </option>
+                        </select>
+                    </td>
+                    <td>
                         <form id="new-book">
                             <input type="hidden" name="action" value="add_new_book"/>
                             <button class="btn btn btn-success" type="submit">
@@ -74,4 +98,7 @@
         </div>
     </body>
     <script th:src="@{js/scripts.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </html>
